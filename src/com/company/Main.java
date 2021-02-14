@@ -28,6 +28,7 @@ public class Main {
         char [] ReturnFail2 = {'F','2'};
         char [] ReturnFail3 = {'F','3'};
         char [] Success  = {'S','u','c','c','e','s','s'};
+        String  SuccessTest = "Success" ;
 
         //Separators
         char startString = '%';
@@ -85,7 +86,7 @@ public class Main {
                                                 if (counterLimitation >= 4) {
                                                     parameterColor = String.valueOf(color) ;
                                                     System.out.println((String.format("Clear - color - %s", parameterColor)));
-                                                    return Success;
+                                                    return Success ;
                                                 } else {
                                                     break;
                                                 }
