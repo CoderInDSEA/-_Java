@@ -2,7 +2,6 @@ package com.company;
 
 
 import java.util.*;
-import java.io.*;
 import java.util.Scanner;
 import java.lang.String;
 
@@ -21,9 +20,9 @@ public class Main {
          returnValueMethod.CommandIdentifier(command);
 
         System.out.println(command_copy);
-        System.out.println("Error in algorithm = " + returnValueMethod.fail);
-        System.out.println(returnValueMethod.value);
-        System.out.println(Arrays.toString(returnValueMethod.Parameters));
+        System.out.println("Error in algorithm = " + returnValueMethod.ErrorCommand);
+        System.out.println(returnValueMethod.ColorReturn);
+        System.out.println(Arrays.toString(returnValueMethod.ParametersReturn));
 
     }
 }

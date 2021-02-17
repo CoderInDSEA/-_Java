@@ -1,16 +1,38 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class ReturningValue {
-    boolean fail ;
-    public int [] Parameters = {0};
-    public String value;
-    public ReturningValue (boolean fail, int [] index , String value ) {
-        this.fail = fail;
-        this.Parameters = index;
-        this.value = value;
+    boolean ErrorCommand;
+    public int [] ParametersReturn = {0};
+    public String ColorReturn;
+    public ReturningValue (boolean fail, int [] Parameters , String ColorReturn ) {
+        this.ErrorCommand = fail;
+        this.ParametersReturn = Parameters;
+        this.ColorReturn = ColorReturn;
     }
     ReturningValue () {
 
+    }
+    public boolean RetBoolean(char [] command) {
+        boolean fail ;
+        CommandIdentifier(command);
+        fail = this.ErrorCommand;
+        return fail;
+    }
+    public int [] RetParameters (char [] command)
+    {
+        int [] Parameters;
+        CommandIdentifier(command);
+        Parameters = Arrays.copyOf(this.ParametersReturn, this.ParametersReturn.length);
+        return Parameters;
+    }
+    public String RetColor (char [] command)
+    {
+        String ColorReturn;
+        CommandIdentifier(command);
+        ColorReturn = this.ColorReturn;
+        return ColorReturn;
     }
     ReturningValue CommandIdentifier (char [] command ) {
 
@@ -72,10 +94,10 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                value = String.valueOf(color);
-                                                fail = false;
+                                                ColorReturn = String.valueOf(color);
+                                                ErrorCommand = false;
                                                 System.out.println((String.format("Clear - color - %s", parameterColor)));
-                                                return new ReturningValue (fail,Parameters, value);
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn);
                                             } else {
                                                 break;
                                             }
@@ -85,8 +107,8 @@ public class ReturningValue {
                                         }
                                         if (CounterFailColor == limitationChar.length) {
                                             //returnValue.value = String.valueOf(ReturnFail3);
-                                            fail = false;
-                                             return new ReturningValue (fail , Parameters, value)  ;
+                                            ErrorCommand = false;
+                                             return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -142,17 +164,17 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Draw pixel - first parameter - %s ," +
                                                         " second parameter - %s , color - %s", parameterX, parameterY, parameterColor)));
-                                                return new ReturningValue (fail,Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -161,7 +183,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, Parameters, value)  ;
+                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -246,24 +268,24 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(color));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(color));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX1);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX1);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY1);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY1);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Draw line - first parameter X - %s , " +
                                                         "second parameter Y - %s , " +
                                                         "third parameter X1 - %s , " +
                                                         "fourth parameter Y1 - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterX1, parameterY1, parameterColor)));
-                                                return new ReturningValue (fail, Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -272,7 +294,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true , Parameters, value)  ;
+                                            return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -351,24 +373,24 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterW);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterW);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterH);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterH);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Draw Rectangle - first parameter X - %s , " +
                                                         "second parameter Y - %s , " +
                                                         "third parameter W - %s , " +
                                                         "fourth parameter H - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                return new ReturningValue (fail, Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -377,7 +399,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true,Parameters, value)  ;
+                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -456,24 +478,24 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterW);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterW);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterH);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterH);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Fill Rectangle - first parameter X - %s , " +
                                                         "second parameter Y - %s , " +
                                                         "third parameter W - %s , " +
                                                         "fourth parameter H - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                return new ReturningValue (fail,Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -482,7 +504,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, Parameters, value)  ;
+                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -562,24 +584,24 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterRadX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterRadX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterRadY);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterRadY);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Draw Ellipse - first parameter X - %s , " +
                                                         "second parameter Y - %s , " +
                                                         "third parameter Radius X - %s , " +
                                                         "fourth parameter Radius Y  - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                return new ReturningValue (fail ,Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -588,7 +610,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true  ,Parameters, value)  ;
+                                            return new ReturningValue (true  , ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -667,24 +689,24 @@ public class ReturningValue {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                fail = false;
-                                                Parameters = new int[countParameters];
-                                                Parameters[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ErrorCommand = false;
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterRadX);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterRadX);
                                                 counterIndexParameters++;
-                                                Parameters[counterIndexParameters] = Integer.parseInt(parameterRadY);
-                                                value = String.valueOf(color);
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterRadY);
+                                                ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Fill Ellipse - first parameter X - %s , " +
                                                         "second parameter Y - %s , " +
                                                         "third parameter Radius X - %s , " +
                                                         "fourth parameter Radius Y  - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                return new ReturningValue (fail,Parameters, value)  ;
+                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -693,7 +715,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, Parameters, value)  ;
+                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -703,14 +725,14 @@ public class ReturningValue {
                         }
                     }
                     else {
-                        return new ReturningValue (true ,Parameters, value)  ;
+                        return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
                     }
                 }
             }
         }
         else {
-            return new ReturningValue (true ,Parameters, value)  ;
+            return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
         }
-        return new ReturningValue (true,Parameters, value)  ;
+        return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
     }
 }
