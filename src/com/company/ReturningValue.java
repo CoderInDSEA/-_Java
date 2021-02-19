@@ -6,7 +6,7 @@ public class ReturningValue {
     boolean ErrorCommand;
     public int [] ParametersReturn = {0};
     public String ColorReturn;
-    public ReturningValue (boolean fail, int [] Parameters , String ColorReturn ) {
+    private ReturningValue (boolean fail, int [] Parameters , String ColorReturn ) {
         this.ErrorCommand = fail;
         this.ParametersReturn = Parameters;
         this.ColorReturn = ColorReturn;
@@ -65,7 +65,7 @@ public class ReturningValue {
         color = new char [4];
 
         //Algorithm
-        if (command[0] == startString ) {
+        if (command[counterCommand] == startString ) {
             counterCommand++;//1
             for (int j = 0; j < firstParCommand.length; j++) {
 
@@ -106,9 +106,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            //returnValue.value = String.valueOf(ReturnFail3);
-                                            ErrorCommand = false;
-                                             return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                             return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -270,7 +268,7 @@ public class ReturningValue {
                                                 parameterColor = String.valueOf(color) ;
                                                 ErrorCommand = false;
                                                 ParametersReturn = new int[countParameters];
-                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(color));
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                 counterIndexParameters++;
                                                 ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
                                                 counterIndexParameters++;
