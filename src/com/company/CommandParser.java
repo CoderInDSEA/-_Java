@@ -2,16 +2,16 @@ package com.company;
 
 import java.util.Arrays;
 
-public class ReturningValue {
+public class CommandParser {
     boolean ErrorCommand;
     public int [] ParametersReturn = {0};
     public String ColorReturn;
-    private ReturningValue (boolean fail, int [] Parameters , String ColorReturn ) {
+    private CommandParser(boolean fail, int [] Parameters , String ColorReturn ) {
         this.ErrorCommand = fail;
         this.ParametersReturn = Parameters;
         this.ColorReturn = ColorReturn;
     }
-    ReturningValue () {
+    CommandParser() {
 
     }
     public boolean RetBoolean(char [] command) {
@@ -34,7 +34,7 @@ public class ReturningValue {
         ColorReturn = this.ColorReturn;
         return ColorReturn;
     }
-    ReturningValue CommandIdentifier (char [] command ) {
+    CommandParser CommandIdentifier (char [] command ) {
 
         //Separators
         char startString = '%';
@@ -97,7 +97,7 @@ public class ReturningValue {
                                                 ColorReturn = String.valueOf(color);
                                                 ErrorCommand = false;
                                                 System.out.println((String.format("Clear - color - %s", parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn);
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
                                             } else {
                                                 break;
                                             }
@@ -106,7 +106,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                             return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+                                             return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -172,7 +172,7 @@ public class ReturningValue {
                                                 ColorReturn = String.valueOf(color);
                                                 System.out.println((String.format("Draw pixel - first parameter - %s ," +
                                                         " second parameter - %s , color - %s", parameterX, parameterY, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -181,7 +181,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -283,7 +283,7 @@ public class ReturningValue {
                                                         "third parameter X1 - %s , " +
                                                         "fourth parameter Y1 - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterX1, parameterY1, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -292,7 +292,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true , ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -388,7 +388,7 @@ public class ReturningValue {
                                                         "third parameter W - %s , " +
                                                         "fourth parameter H - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -397,7 +397,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -493,7 +493,7 @@ public class ReturningValue {
                                                         "third parameter W - %s , " +
                                                         "fourth parameter H - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -502,7 +502,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -599,7 +599,7 @@ public class ReturningValue {
                                                         "third parameter Radius X - %s , " +
                                                         "fourth parameter Radius Y  - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -608,7 +608,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true  , ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true  , ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -704,7 +704,7 @@ public class ReturningValue {
                                                         "third parameter Radius X - %s , " +
                                                         "fourth parameter Radius Y  - %s , " +
                                                         "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                return new ReturningValue (ErrorCommand, ParametersReturn, ColorReturn)  ;
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -713,7 +713,7 @@ public class ReturningValue {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                            return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;
@@ -723,14 +723,14 @@ public class ReturningValue {
                         }
                     }
                     else {
-                        return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
+                        return new CommandParser(true , ParametersReturn, ColorReturn)  ;
                     }
                 }
             }
         }
         else {
-            return new ReturningValue (true , ParametersReturn, ColorReturn)  ;
+            return new CommandParser(true , ParametersReturn, ColorReturn)  ;
         }
-        return new ReturningValue (true, ParametersReturn, ColorReturn)  ;
+        return new CommandParser(true, ParametersReturn, ColorReturn)  ;
     }
 }
