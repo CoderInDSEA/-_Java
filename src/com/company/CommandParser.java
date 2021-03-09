@@ -43,7 +43,9 @@ public class CommandParser {
 
         //Command component
         char [] firstParCommand = {'0', '1', '2','3', '4', '5', '6'};
+        char [] CheckParameters = {'0','1','2','3','4','5','6','7','8','9'};
         char [] limitationChar = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        char [] characterCheck = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','%','_','@'};
 
         //Command helper
         char first_Cmd;
@@ -59,10 +61,26 @@ public class CommandParser {
                 CounterFailColor = 0 ,
                 counterIndexParameters = 0,
                 countParameters = 1,
-                startParameter;
+                startParameter,
+                counterCheckerChar = 0 ;
 
         //Size Array
         color = new char [4];
+
+        //Chharacter Check
+        for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++)
+        {
+            for(int counterChecker = 0 ; counterChecker < characterCheck.length ; counterChecker++){
+                if (command[counterCheckCommand] == characterCheck[counterChecker]){
+                    break;
+                }
+                if (counterChecker == characterCheck.length-1)
+                {
+                    return new CommandParser(true, ParametersReturn, ColorReturn)  ;
+                }
+
+            }
+        }
 
         //Algorithm
         if (command[counterCommand] == startString ) {
@@ -77,7 +95,7 @@ public class CommandParser {
                         switch (first_Cmd) {
                             //Clear
                             case '0':
-                                //Copy Color
+
                                 for (int CopyColor = counterCommand ; CopyColor < command.length; CopyColor++) {
                                     if (command [CopyColor] == endString) {
                                         counterCommand++;
@@ -86,6 +104,7 @@ public class CommandParser {
                                     color [counterCmd] = command[CopyColor];
                                     counterCmd++;
                                     counterCommand++;
+
                                 }
                                 //Limitation of color text and Outputting the parsed command to the screen
                                 for (int CountToCount = 0 ; CountToCount < 4 ; ++CountToCount) {
@@ -94,10 +113,12 @@ public class CommandParser {
                                             counterLimitation++;
                                             if (counterLimitation >= 4) {
                                                 parameterColor = String.valueOf(color) ;
-                                                ColorReturn = String.valueOf(color);
                                                 ErrorCommand = false;
-                                                System.out.println((String.format("Clear - color - %s", parameterColor)));
-                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                ParametersReturn = new int[countParameters];
+                                                ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                ColorReturn = String.valueOf(color);
+                                                System.out.println((String.format("Draw pixel - color - %s",  parameterColor)));
+                                                return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn)  ;
                                             } else {
                                                 break;
                                             }
@@ -106,7 +127,7 @@ public class CommandParser {
                                             CounterFailColor++;
                                         }
                                         if (CounterFailColor == limitationChar.length) {
-                                             return new CommandParser(true, ParametersReturn, ColorReturn)  ;
+                                            return new CommandParser(true, ParametersReturn, ColorReturn)  ;
                                         }
                                     }
                                     CounterFailColor = 0;

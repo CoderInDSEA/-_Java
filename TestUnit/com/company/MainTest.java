@@ -35,9 +35,9 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFirstCommandError = {'%','0','_','f','f','f','f','@'};
+        char [] commandTestFirstCommandError = {'%','0','_',' ','f','f','f','f','@'};
         ParametersTest [0] = new int[]{0};
-        ParametersTest[1] = "faff";
+        ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFirstCommandError);
         ParametersReturn [1] = returningValue.RetColor(commandTestFirstCommandError);
         assertNotEquals(ParametersTest , ParametersReturn);
@@ -61,7 +61,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestSecondCommandError = {'%','1','_','1','0','0','_','1','0','0','_','f','f','f','f','@'};
+        char [] commandTestSecondCommandError = {'t','1','_','1','0','0','_','1','0','0','_',' ','f','f','f','f','@'};
         ParametersTest [0] = new int[]{1,100,100};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestSecondCommandError);
