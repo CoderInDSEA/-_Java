@@ -56,34 +56,23 @@ import javax.swing.event.ChangeListener;
     public void paint(Graphics g) {
         if (ColorReturn != null) {
 
-            int redMask   = 0b1111100000000000;
-            int greenMask = 0b0000011111100000;
-            int blueMask  = 0b0000000000011111;
-            String colorFull = "0x" + ColorReturn;
-            //byte[] byteArrray = colorFull.getBytes();
-            //int  [] ColorRGB888 = GUI.RGB565ToRGB888(byteArrray);
-            int ColorRGB565 =  Integer.parseInt(ColorReturn.substring(0,ColorReturn.length()), 16);
-            int ColorRGB888 = RGB565ToRGB888(ColorRGB565);
-            Color color = new Color (ColorRGB888);
-            /*
-            //RGB565
-            int R = (ColorRGB565 & redMask) >> 11; // keep only red bits
-            int G = (ColorRGB565 & greenMask) >> 5; // keep only green bits
-            int B = ColorRGB565 & blueMask; // keep only blue bits
-            Color color = new Color (R,G,B);*/
-            //int ColorRGB565 =  Integer.parseInt(ColorBuffer.substring(2,ColorBuffer.length()), 16);
+            int colorAsInteger = Integer.parseInt(ColorReturn, 24); // convert the Hex value to int
+            byte colorByte = (byte)colorAsInteger;
+            byte R = (byte) (((colorByte & 0xF800) >>11)<<3); // keep only red bits
+            byte G = (byte)(((colorByte & 0x7E0) >> 5) <<2); // keep only green bits
+            byte B = (byte)((colorByte & 0x1F )<< 3); // keep only blue bits
+            int red = (int)(R & 255);
+            int green = (int)(G & 255);
+            int blue = (int)(B & 255);
+            System.out.println(red  + " " + green  + " " + blue );
 
-            //
-            // int R = (ColorRGB565 & redMask) >> 11; // keep only red bits
-            //int G = (ColorRGB565 & greenMask) >> 5; // keep only green bits
-            //int B = ColorRGB565 & blueMask; // keep only blue bits
-           // Color color = new Color(ColorRGB888 [0], ColorRGB888 [1], ColorRGB888 [2]);
+            Color color = new Color(red,green,blue);
             switch (this.ParametersReturn[0]) {
 
 
                 case 0:
                     g.setColor(color);
-                    g.clearRect(0, 0, 600, 600);
+                    g.fillRect(0, 0, 600, 600);
                     break;
                 case 1:
                     g.setColor(color);
@@ -117,12 +106,46 @@ import javax.swing.event.ChangeListener;
         }
 
     }
-     static int RGB565ToRGB888(int data) {
-         final int b = (((data) & 0x001F) << 3) & 0xFF;
-         final int g = (((data) & 0x07E0) >>> 3) & 0xFF;
-         final int r = (((data) & 0xF800) >>> 8) & 0xFF;
-         // return RGBA
-         return 0x000000ff | (r << 24) | (g << 16) | (b << 8);
+     public static int[] convertRgb888To565(int[] rgb888) {
+         int max;
+         int[] rgb565;
+
+         max = rgb888.length;
+         rgb565 = new int[max];
+         for (int i = 0; i < max; i++) {
+             rgb565[i] = RGB565ToRGB888(rgb888[i]);
+         }
+         return rgb565;
+     }
+     int[] wordToRGB(byte[] word){
+         int c = (word[0] << 8) | (word[1]);
+         //RGB565
+         int r = (c >> (6+5)) & 0x01F;
+         int g = (c >> 5) & 0x03F;
+         int b = (c) & 0x01F;
+         //RGB888 - amplify
+         r <<= 3;
+         g <<= 2;
+         b <<= 3;
+         return new int[]{r,g,b};
+     }
+     byte[] colorToWord(int c){
+         int r = (c >> 16) & 0xFF;
+         int g = (c >> 8)  & 0xFF;
+         int b =  c        & 0xFF;
+         return new byte[]{(byte)((r&248)|g>>5),(byte)((g&28)<<3|b>>3)};
+     }
+     static int RGB565ToRGB888(int word) {
+         /*final int RGB565_MASK_RED       = 0xF800;
+         final int RGB565_MASK_GREEN     = 0x07E0;
+         final int RGB565_MASK_BLUE      = 0x001F;
+
+             int[] rgb24 = new int[3];
+             rgb24[2] = (int)(word & RGB565_MASK_RED) >> 8;
+             rgb24[1] =(int) (word & RGB565_MASK_GREEN) >> 3;
+             rgb24[0] = (int)(word & RGB565_MASK_BLUE) << 3;
+             return rgb24;*/
+         return ((word & 0xf80000) << 8) | ((word & 0xfc00) << 5) | ((word & 0xf8) << 3);
      }
     public void Clear (Graphics g, Color color)
      {

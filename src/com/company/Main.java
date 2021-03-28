@@ -21,56 +21,44 @@ public class Main {
         int greenMask = 0b0000011111100000;
         int blueMask  = 0b0000000000011111;
 
-        String color1 = "0xFFE0";
-        int colorAsInteger = Integer.parseInt(color1.substring(2,color1.length()), 16); // convert the Hex value to int
-
-        int R1 = (colorAsInteger & redMask) >> 11; // keep only red bits
-        int G1 = (colorAsInteger & greenMask) >> 5; // keep only green bits
-        int B1 = colorAsInteger & blueMask; // keep only blue bits
-
-        System.out.println(R1 + " " + G1 + " " + B1);
         boolean Why = true;
         while (Why) {
-
             gui.DrawComponent();
             Parameters = gui.SetPar();
             ColorString = gui.SetColor();
-            //String colorFull = "0x" + ColorString;
-            //byte[] byteArrray = colorFull.getBytes();
-            //int  [] ColorRGB888 = GUI.RGB565ToRGB888(byteArrray);
+            int colorAsInteger = Integer.parseInt(ColorString, 24); // convert the Hex value to int
+            byte colorByte = (byte)colorAsInteger;
+            byte R = (byte) (((colorByte & 0xF800) >>11)<<3); // keep only red bits
+            byte G = (byte)(((colorByte & 0x7E0) >> 5) <<2); // keep only green bits
+            byte B = (byte)((colorByte & 0x1F )<< 3); // keep only blue bits
+            int r = (int)(R & 255);
+            int g = (int)(G & 255);
+            int b = (int)(B & 255);
+            System.out.println(r  + " " + g  + " " + b );
 
-            int ColorRGB565 =  Integer.parseInt(ColorString.substring(0,ColorString.length()), 16);
+            Color color = new Color(r,g,b);
 
-            //
-           // int R = (ColorRGB565 & redMask) >> 11; // keep only red bits
-            //int G = (ColorRGB565 & greenMask) >> 5; // keep only green bits
-            //int B = ColorRGB565 & blueMask; // keep only blue bits
-            int R = (ColorRGB565 & redMask) >> 11; // keep only red bits
-            int G = (ColorRGB565 & greenMask) >> 5; // keep only green bits
-            int B = ColorRGB565 & blueMask; // keep only blue bits
-            Color color = new Color (R,G,B);
-            System.out.println(R + " " + G + " " + B);
             switch (Parameters[0]) {
                 case 0:
-                    gui.Clear(gui.getGraphics(),color);
+                    gui.Clear(gui.getGraphics(), color);
                     break;
                 case 1:
-                    gui.drawPixel(gui.getGraphics(),color);
+                    gui.drawPixel(gui.getGraphics(), color);
                     break;
                 case 2:
-                    gui.drawLine(gui.getGraphics(),color);
+                    gui.drawLine(gui.getGraphics(), color);
                     break;
                 case 3:
-                    gui.drawRectangle(gui.getGraphics(),color);
+                    gui.drawRectangle(gui.getGraphics(), color);
                     break;
                 case 4:
-                    gui.fillRectangle(gui.getGraphics(),color);
+                    gui.fillRectangle(gui.getGraphics(), color);
                     break;
                 case 5:
-                    gui.drawEllipse(gui.getGraphics(),color);
+                    gui.drawEllipse(gui.getGraphics(), color);
                     break;
                 case 6:
-                    gui.fillEllipse(gui.getGraphics(),color);
+                    gui.fillEllipse(gui.getGraphics(), color);
                     break;
                 default:
                     System.out.println("Fail command");
