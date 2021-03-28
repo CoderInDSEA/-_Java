@@ -56,7 +56,7 @@ import javax.swing.event.ChangeListener;
     public void paint(Graphics g) {
         if (ColorReturn != null) {
 
-            int colorAsInteger = Integer.parseInt(ColorReturn, 24); // convert the Hex value to int
+            int colorAsInteger = Integer.parseInt(ColorReturn, 16); // convert the Hex value to int
             byte colorByte = (byte)colorAsInteger;
             byte R = (byte) (((colorByte & 0xF800) >>11)<<3); // keep only red bits
             byte G = (byte)(((colorByte & 0x7E0) >> 5) <<2); // keep only green bits
@@ -156,37 +156,37 @@ import javax.swing.event.ChangeListener;
 
     public void drawPixel (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.drawOval (ParametersReturn[1],ParametersReturn[2],1,1);
     }
     public void drawLine (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.drawLine (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4] );
     }
     public void drawRectangle (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        ///g.clearRect(0,0,600,600);
         g.setColor(color);
         g.drawRect (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4] );
     }
     public void fillRectangle (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.fillRect (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4]);
     }
     public void drawEllipse (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.drawOval (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4] );
     }
     public void fillEllipse (Graphics g, Color color)
     {
-        g.clearRect(0,0,600,600);
+        //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.fillOval (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4]);
     }

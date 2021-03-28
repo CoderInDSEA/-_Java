@@ -39,7 +39,7 @@ public class CommandParser {
     }
 
     boolean  CharacterCheck(char[] command) {
-        char[] characterCheck = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '%', '_', '@', '\u0000'};
+        char[] characterCheck = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '#', '_', '@', '\u0000'};
         int failChecker = 0, iterationCounter = 0;
         for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++) {
             failChecker=0;
@@ -61,7 +61,7 @@ public class CommandParser {
     CommandParser CommandIdentifier (char [] command ) {
 
         //Separators
-        char startString = '%';
+        char startString = '#';
         char endString = '@';
         char delimiterString = '_';
 

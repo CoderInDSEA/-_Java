@@ -26,7 +26,7 @@ public class Main {
             gui.DrawComponent();
             Parameters = gui.SetPar();
             ColorString = gui.SetColor();
-            int colorAsInteger = Integer.parseInt(ColorString, 24); // convert the Hex value to int
+            int colorAsInteger = Integer.parseInt(ColorString, 16); // convert the Hex value to int
             byte colorByte = (byte)colorAsInteger;
             byte R = (byte) (((colorByte & 0xF800) >>11)<<3); // keep only red bits
             byte G = (byte)(((colorByte & 0x7E0) >> 5) <<2); // keep only green bits

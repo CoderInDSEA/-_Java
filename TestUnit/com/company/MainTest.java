@@ -22,7 +22,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFirstCommand = {'%','0','_','f','f','f','f','@'};
+        char [] commandTestFirstCommand = {'#','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{0};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFirstCommand);
@@ -35,7 +35,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFirstCommandError = {'%','0','_',' ','f','f','f','f','@'};
+        char [] commandTestFirstCommandError = {'#','0','_',' ','f','f','f','f','@'};
         ParametersTest [0] = new int[]{0};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFirstCommandError);
@@ -48,7 +48,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestSecondCommand = {'%','1','_','1','0','0','_','1','0','0','_','f','f','f','f','@'};
+        char [] commandTestSecondCommand = {'#','1','_','1','0','0','_','1','0','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{1,100,100};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestSecondCommand);
@@ -74,7 +74,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestThirdCommand = {'%','2','_','1','0','0','_','1','0','0','_','2','0','0','_','1','0','0','_','f','f','f','f','@'};
+        char [] commandTestThirdCommand = {'#','2','_','1','0','0','_','1','0','0','_','2','0','0','_','1','0','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{2, 100, 100, 200, 100};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestThirdCommand);
@@ -87,7 +87,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestThirdCommandError = {'%','2','_','1','0','0','_','1','0','0','_','2','0','0','_','1','0','0','_','f','f','f','f','@'};
+        char [] commandTestThirdCommandError = {'#','2','_','1','0','0','_','1','0','0','_','2','0','0','_','1','0','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{2, 100, 100, 100, 100};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestThirdCommandError);
@@ -100,7 +100,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFourthCommand = {'%','3','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFourthCommand = {'#','3','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{3, 100, 100, 20, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFourthCommand);
@@ -113,7 +113,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFourthCommandError= {'%','3','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFourthCommandError= {'#','3','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{3, 100, 100, 100, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFourthCommandError);
@@ -126,7 +126,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFiveCommand = {'%','4','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFiveCommand = {'#','4','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{4, 100, 100, 20, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFiveCommand);
@@ -139,7 +139,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFourthCommandError= {'%','4','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFourthCommandError= {'#','4','_','1','0','0','_','1','0','0','_','2','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{4, 100, 100, 20, 10};
         ParametersTest[1] = "fffa";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFourthCommandError);
@@ -153,7 +153,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFiveCommand = {'%','5','_','1','0','0','_','1','0','0','_','5','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFiveCommand = {'#','5','_','1','0','0','_','1','0','0','_','5','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{5, 100, 100, 50, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFiveCommand);
@@ -166,7 +166,7 @@ public class MainTest {
         Object[] ParametersTest = CommandParameters();
         Object[] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char[] commandTestFourthCommandError = {'%', '5', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
+        char[] commandTestFourthCommandError = {'#', '5', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
         ParametersTest[0] = new int[]{5, 100, 100, 50, 10};
         ParametersTest[1] = "fffa";
         ParametersReturn[0] = returningValue.RetParameters(commandTestFourthCommandError);
@@ -179,7 +179,7 @@ public class MainTest {
         Object [] ParametersTest = CommandParameters();
         Object [] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char [] commandTestFiveCommand = {'%','6','_','1','0','0','_','1','0','0','_','5','0','_','1','0','_','f','f','f','f','@'};
+        char [] commandTestFiveCommand = {'#','6','_','1','0','0','_','1','0','0','_','5','0','_','1','0','_','f','f','f','f','@'};
         ParametersTest [0] = new int[]{6, 100, 100, 50, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn [0] =  returningValue.RetParameters(commandTestFiveCommand);
@@ -192,7 +192,7 @@ public class MainTest {
         Object[] ParametersTest = CommandParameters();
         Object[] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char[] commandTestFourthCommandError = {'%', '6', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
+        char[] commandTestFourthCommandError = {'#', '6', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
         ParametersTest[0] = new int[]{5, 100, 100, 100, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn[0] = returningValue.RetParameters(commandTestFourthCommandError);
