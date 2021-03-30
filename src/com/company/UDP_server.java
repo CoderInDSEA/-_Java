@@ -1,40 +1,28 @@
 package com.company;
-import org.w3c.dom.Text;
+
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.SliderUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.http.WebSocket;
 import java.util.*;
 import java.lang.String;
-import java.util.List;
-import javax.swing.event.ChangeListener;
  class GUI extends JFrame {
     private int[] ParametersReturn = {0};
      private JFrame frame;
     private String ColorReturn;
     private boolean Fail;
-    char [] command;
+    char [] command, message;
     public int [] SetPar() {
         return ParametersReturn;
     }
      public String SetColor() {
          return ColorReturn;
      }
+     public  char[] SetMessage() { return message;}
     public void DrawComponent () throws IOException {
         UDP_server udpServer = new UDP_server();
         CommandParser commandParser = new CommandParser();
@@ -42,9 +30,11 @@ import javax.swing.event.ChangeListener;
         ParametersReturn = commandParser.RetParameters(command);
         ColorReturn = commandParser.RetColor(command);
         Fail= commandParser.RetBoolean(command);
+        message = commandParser.RetMessage(command);
         System.out.println("Error in algorithm = " + Fail);
         System.out.println(ColorReturn);
         System.out.println(Arrays.toString(ParametersReturn));
+        System.out.println(message);
     }
     public GUI()  throws IOException {
         frame = new JFrame("Frame Display Test");
@@ -98,6 +88,11 @@ import javax.swing.event.ChangeListener;
                     g.setColor(color);
                     g.fillOval(ParametersReturn[1], ParametersReturn[2], ParametersReturn[3], ParametersReturn[4]);
                     break;
+                case 7:
+                    g.setColor(color);
+                    //g.fillOval(ParametersReturn[1], ParametersReturn[2], ParametersReturn[3], ParametersReturn[4]);
+                    g.drawChars (message,ParametersReturn[3],1,ParametersReturn[1],ParametersReturn[2]);
+                    break;
                 default:
                     g.setColor(color);
                     System.out.println("Please back to client");
@@ -106,47 +101,7 @@ import javax.swing.event.ChangeListener;
         }
 
     }
-     public static int[] convertRgb888To565(int[] rgb888) {
-         int max;
-         int[] rgb565;
 
-         max = rgb888.length;
-         rgb565 = new int[max];
-         for (int i = 0; i < max; i++) {
-             rgb565[i] = RGB565ToRGB888(rgb888[i]);
-         }
-         return rgb565;
-     }
-     int[] wordToRGB(byte[] word){
-         int c = (word[0] << 8) | (word[1]);
-         //RGB565
-         int r = (c >> (6+5)) & 0x01F;
-         int g = (c >> 5) & 0x03F;
-         int b = (c) & 0x01F;
-         //RGB888 - amplify
-         r <<= 3;
-         g <<= 2;
-         b <<= 3;
-         return new int[]{r,g,b};
-     }
-     byte[] colorToWord(int c){
-         int r = (c >> 16) & 0xFF;
-         int g = (c >> 8)  & 0xFF;
-         int b =  c        & 0xFF;
-         return new byte[]{(byte)((r&248)|g>>5),(byte)((g&28)<<3|b>>3)};
-     }
-     static int RGB565ToRGB888(int word) {
-         /*final int RGB565_MASK_RED       = 0xF800;
-         final int RGB565_MASK_GREEN     = 0x07E0;
-         final int RGB565_MASK_BLUE      = 0x001F;
-
-             int[] rgb24 = new int[3];
-             rgb24[2] = (int)(word & RGB565_MASK_RED) >> 8;
-             rgb24[1] =(int) (word & RGB565_MASK_GREEN) >> 3;
-             rgb24[0] = (int)(word & RGB565_MASK_BLUE) << 3;
-             return rgb24;*/
-         return ((word & 0xf80000) << 8) | ((word & 0xfc00) << 5) | ((word & 0xf8) << 3);
-     }
     public void Clear (Graphics g, Color color)
      {
 
@@ -190,6 +145,11 @@ import javax.swing.event.ChangeListener;
         g.setColor(color);
         g.fillOval (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4]);
     }
+     public void drawChars (Graphics g, Color color, char [] message)
+     {
+         g.setColor(color);
+         g.drawChars (message,ParametersReturn[3], message.length, ParametersReturn[1],ParametersReturn[2]);
+     }
  }
 
 public class UDP_server {

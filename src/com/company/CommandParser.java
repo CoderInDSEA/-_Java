@@ -1,16 +1,15 @@
 package com.company;
 
-import java.util.Arrays;
-
 public class CommandParser {
     boolean ErrorCommand;
     public int[] ParametersReturn = {0};
     public String ColorReturn;
-
-    private CommandParser(boolean fail, int[] Parameters, String ColorReturn) {
+    public  char []  message = {' '};
+    private CommandParser(boolean fail, int[] Parameters, String ColorReturn , char [] message) {
         this.ErrorCommand = fail;
         this.ParametersReturn = Parameters;
         this.ColorReturn = ColorReturn;
+        this.message = message;
     }
 
     CommandParser() {
@@ -38,24 +37,59 @@ public class CommandParser {
         return ColorReturn;
     }
 
+    public char[] RetMessage(char [] command) {
+        CommandIdentifier(command);
+        char [] ReturnMessage = this.message;
+        //ReturnMessage = this.message;
+        return ReturnMessage;
+    }
+    private String getCharForNumber(int i) {
+        return i > 0 && i < 27 ? String.valueOf((char)(i + 64)) : null;
+    }
     boolean  CharacterCheck(char[] command) {
         char[] characterCheck = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '#', '_', '@', '\u0000'};
-        int failChecker = 0, iterationCounter = 0;
-        for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++) {
-            failChecker=0;
-            for (int counterChecker = 0; counterChecker < characterCheck.length; counterChecker++) {
-                if (command[counterCheckCommand] == characterCheck[counterChecker]) {
-                    failChecker++;
-                    break;
-                }
+        int failChecker = 0, iterationCounter = 0, counterDelimiter = 0;
+        //if (IdentCommand != '7') {
+            for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++) {
+                failChecker = 0;
+                for (int counterChecker = 0; counterChecker < characterCheck.length; counterChecker++) {
+                    if (command[counterCheckCommand] == characterCheck[counterChecker]) {
+                        failChecker++;
+                        break;
+                    }
 
+                }
+                if (failChecker == 0) {
+                    return true;
+                }
             }
-            if (failChecker == 0) {
-                return true;
+        /*}else  {
+            for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++) {
+                failChecker = 0;
+                for (int counterChecker = 0; counterChecker < characterCheck.length; counterChecker++) {
+                    if (command[counterCheckCommand] == '_') counterDelimiter++;
+                    if (counterDelimiter == 4 && command[counterCheckCommand] == '_'){
+                        for(int CounterIdent = 0; CounterIdent<command.length; CounterIdent++ ){if(command[CounterIdent] == '_') {iterationCounter = CounterIdent;
+                        break;}}
+                    }
+                    if (iterationCounter != 0) {
+                        counterCheckCommand = iterationCounter;
+                        break;
+                    }
+                    if (command[counterCheckCommand] == characterCheck[counterChecker]) {
+                        failChecker++;
+                        break;
+                    }
+
+                }
+                if (failChecker == 0) {
+                    return true;
+                }
             }
-        }
+        }*/
         return false ;
     }
+
 
 
     CommandParser CommandIdentifier (char [] command ) {
@@ -66,38 +100,47 @@ public class CommandParser {
         char delimiterString = '_';
 
         //Command component
-        char[] firstParCommand = {'0', '1', '2', '3', '4', '5', '6'};
+        char[] firstParCommand = {'0', '1', '2', '3', '4', '5', '6','7'};
         char[] CheckParameters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         char[] limitationChar = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 
         //Command helper
-        char first_Cmd;
-        char[] color = {' '};
+        char first_Cmd,  IdentCommand ;
+        char[] color = {' '} ;
         String parameterColor = "",
                 parameterX = "", parameterY = "",
                 parameterX1 = "", parameterY1 = "",
                 parameterW = "", parameterH = "",
-                parameterRadX = "", parameterRadY = "";
+                parameterRadX = "", parameterRadY = "",
+                Letter = "";
+
         int counterCommand = 0, // counter for full command
                 counterLimitation = 0,
                 counterCmd = 0,
                 CounterFailColor = 0,
                 counterIndexParameters = 0,
                 countParameters = 1,
-                startParameter;
+                startParameter,
+                parameterOffset = 0,
+                codeLetter= 0,
+                lengthMessage = 0;
         boolean FailChecker = false;
 
 
         //Size Array
         color = new char[4];
 
+        //Command Identifier
+       // IdentCommand = command[1];
+
+
         //Character Check
         FailChecker = CharacterCheck(command);
         if (FailChecker == true) {
             System.out.println(String.format("You made a mistake in the command"));
             ErrorCommand = true;
-            return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+            return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
         } else {
             //Algorithm
             if (command[counterCommand] == startString) {
@@ -135,7 +178,7 @@ public class CommandParser {
                                                     ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
                                                     ColorReturn = String.valueOf(color);
                                                     System.out.println((String.format("Draw pixel - color - %s", parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -143,7 +186,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -208,7 +251,7 @@ public class CommandParser {
                                                     ColorReturn = String.valueOf(color);
                                                     System.out.println((String.format("Draw pixel - first parameter - %s ," +
                                                             " second parameter - %s , color - %s", parameterX, parameterY, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -216,7 +259,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -317,7 +360,7 @@ public class CommandParser {
                                                             "third parameter X1 - %s , " +
                                                             "fourth parameter Y1 - %s , " +
                                                             "color - %s", parameterX, parameterY, parameterX1, parameterY1, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -325,7 +368,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -420,7 +463,7 @@ public class CommandParser {
                                                             "third parameter W - %s , " +
                                                             "fourth parameter H - %s , " +
                                                             "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -428,7 +471,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -523,7 +566,7 @@ public class CommandParser {
                                                             "third parameter W - %s , " +
                                                             "fourth parameter H - %s , " +
                                                             "color - %s", parameterX, parameterY, parameterW, parameterH, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -531,7 +574,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -627,7 +670,7 @@ public class CommandParser {
                                                             "third parameter Radius X - %s , " +
                                                             "fourth parameter Radius Y  - %s , " +
                                                             "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -635,7 +678,7 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
@@ -730,7 +773,7 @@ public class CommandParser {
                                                             "third parameter Radius X - %s , " +
                                                             "fourth parameter Radius Y  - %s , " +
                                                             "color - %s", parameterX, parameterY, parameterRadX, parameterRadY, parameterColor)));
-                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn);
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
                                                 } else {
                                                     break;
                                                 }
@@ -738,23 +781,134 @@ public class CommandParser {
                                                 CounterFailColor++;
                                             }
                                             if (CounterFailColor == limitationChar.length) {
-                                                return new CommandParser(true, ParametersReturn, ColorReturn);
+                                                return new CommandParser(true, ParametersReturn, ColorReturn, message);
+                                            }
+                                        }
+                                        CounterFailColor = 0;
+                                    }
+                                case '7':
+                                    startParameter = counterCommand;
+                                    for (int counterFirstPar = counterCommand; counterFirstPar < command.length; counterFirstPar++) {
+                                        if (command[counterFirstPar] == delimiterString) {
+                                            counterCommand++;
+                                            countParameters++;
+                                            parameterX = String.valueOf(command, startParameter, counterCmd);
+
+                                            break;
+                                        }
+                                        counterCmd++;
+                                        counterCommand++;
+                                    }
+                                    if (counterCmd >= 2) {
+                                        counterCmd = 0;
+                                        startParameter = counterCommand;
+                                    }
+                                    for (int counterSecondPar = counterCommand; counterSecondPar < command.length; counterSecondPar++) {
+                                        if (command[counterSecondPar] == delimiterString) {
+                                            counterCommand++;
+                                            countParameters++;
+                                            parameterY = String.valueOf(command, startParameter, counterCmd);
+                                            break;
+                                        }
+                                        counterCmd++;
+                                        counterCommand++;
+                                    }
+                                    if (counterCmd >= 1) {
+                                        counterCmd = 0;
+                                        startParameter = counterCommand;
+                                    }
+                                    for (int counterThirdPar = counterCommand; counterThirdPar < command.length; counterThirdPar++) {
+                                        if (command[counterThirdPar] == delimiterString) {
+                                            counterCommand++;
+                                            countParameters++;
+
+                                            parameterOffset = Integer.parseInt(String.valueOf(command[counterCommand]));
+                                            if (parameterOffset != 0) {
+                                                parameterOffset = 0;
+                                            }
+                                            break;
+                                        }
+                                        counterCmd++;
+                                        counterCommand++;
+                                    }
+                                    if (counterCmd >= 1) {
+                                        counterCmd = 0;
+                                        startParameter = counterCommand;
+                                    }
+                                    for (int counterFourthPar = counterCommand; counterFourthPar < command.length; counterFourthPar++) {
+                                        if (command[counterFourthPar] == delimiterString) {
+                                            counterCommand++;
+                                            countParameters++;
+                                            codeLetter = Integer.parseInt(String.valueOf(command, startParameter, counterCmd));
+                                            break;
+                                        }
+                                        //messageMethod [counterCmd] = command [counterFourthPar];
+                                        counterCmd++;
+                                        counterCommand++;
+                                    }
+                                    if (counterCmd >= 2) {
+                                        counterCmd = 0;
+
+                                    }
+                                    for (int CopyColor = counterCommand; CopyColor < command.length; CopyColor++) {
+                                        if (command[CopyColor] == endString) {
+                                            counterCommand++;
+                                            break;
+                                        }
+                                        color[counterCmd] = command[CopyColor];
+                                        counterCmd++;
+                                        counterCommand++;
+                                    }
+                                    for (int CountToCount = 0; CountToCount < 4; ++CountToCount) {
+                                        for (int CountLimit = 0; CountLimit <= limitationChar.length; CountLimit++) {
+                                            if (color[CountToCount] == limitationChar[CountLimit]) {
+                                                counterLimitation++;
+                                                if (counterLimitation >= 4) {
+                                                    parameterColor = String.valueOf(color);
+                                                    ErrorCommand = false;
+                                                    ParametersReturn = new int[countParameters];
+                                                    ParametersReturn[counterIndexParameters] = Integer.parseInt(String.valueOf(first_Cmd));
+                                                    counterIndexParameters++;
+                                                    ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterX);
+                                                    counterIndexParameters++;
+                                                    ParametersReturn[counterIndexParameters] = Integer.parseInt(parameterY);
+                                                    counterIndexParameters++;
+                                                    ParametersReturn[counterIndexParameters] = parameterOffset;
+                                                    message [0] = (char)codeLetter;
+                                                    //message = Arrays.copyOf(messageMethod, messageMethod.length);
+                                                    ColorReturn = String.valueOf(color);
+                                                    System.out.println((String.format("Fill Ellipse - first parameter X - %s , " +
+                                                            "second parameter Y - %s , " +
+                                                            "color - %s ," +
+                                                            " offset = %s " +
+                                                            "Letter from message - %s", parameterX, parameterY, parameterColor ,parameterOffset , message [0])));
+                                                    return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
+                                                } else {
+                                                    break;
+                                                }
+                                            } else {
+                                                CounterFailColor++;
+                                            }
+                                            if (CounterFailColor == limitationChar.length) {
+                                                return new CommandParser(true,ParametersReturn, ColorReturn, message);
                                             }
                                         }
                                         CounterFailColor = 0;
                                     }
                                 default:
                                     break;
+
+
                             }
                         } else {
-                            return new CommandParser(true, ParametersReturn, ColorReturn);
+                            return new CommandParser(true, ParametersReturn, ColorReturn, message);
                         }
                     }
                 }
             } else {
-                return new CommandParser(true, ParametersReturn, ColorReturn);
+                return new CommandParser(true, ParametersReturn, ColorReturn, message);
             }
-            return new CommandParser(true, ParametersReturn, ColorReturn);
+            return new CommandParser(true, ParametersReturn, ColorReturn, message);
         }
     }
 }
