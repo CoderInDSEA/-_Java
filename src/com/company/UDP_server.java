@@ -11,30 +11,36 @@ import java.net.SocketException;
 import java.util.*;
 import java.lang.String;
  class GUI extends JFrame {
-    private int[] ParametersReturn = {0};
+    public int[] ParametersReturn = {0};
      private JFrame frame;
-    private String ColorReturn;
-    private boolean Fail;
+    public String ColorReturn;
+    public boolean Fail;
     char [] command, message;
     public int [] SetPar() {
+        CommandParser commandParser = new CommandParser();
+        ParametersReturn = commandParser.RetParameters(command);
+        System.out.println(Arrays.toString(ParametersReturn));
         return ParametersReturn;
     }
      public String SetColor() {
-         return ColorReturn;
+         CommandParser commandParser = new CommandParser();
+         ColorReturn = commandParser.RetColor(command);
+         System.out.println(ColorReturn);
+        return ColorReturn;
      }
-     public  char[] SetMessage() { return message;}
+     public  char[] SetMessage() {
+         CommandParser commandParser = new CommandParser();
+         message = commandParser.RetMessage(command);
+         System.out.println(message);
+        return message;}
+     public  boolean SetFail() {
+         CommandParser commandParser = new CommandParser();
+         Fail= commandParser.RetBoolean(command);
+         System.out.println("Error in algorithm = " + Fail);
+         return Fail;}
     public void DrawComponent () throws IOException {
         UDP_server udpServer = new UDP_server();
-        CommandParser commandParser = new CommandParser();
         command = udpServer.ServerUDP();
-        ParametersReturn = commandParser.RetParameters(command);
-        ColorReturn = commandParser.RetColor(command);
-        Fail= commandParser.RetBoolean(command);
-        message = commandParser.RetMessage(command);
-        System.out.println("Error in algorithm = " + Fail);
-        System.out.println(ColorReturn);
-        System.out.println(Arrays.toString(ParametersReturn));
-        System.out.println(message);
     }
     public GUI()  throws IOException {
         frame = new JFrame("Frame Display Test");
@@ -90,7 +96,6 @@ import java.lang.String;
                     break;
                 case 7:
                     g.setColor(color);
-                    //g.fillOval(ParametersReturn[1], ParametersReturn[2], ParametersReturn[3], ParametersReturn[4]);
                     g.drawChars (message,ParametersReturn[3],1,ParametersReturn[1],ParametersReturn[2]);
                     break;
                 default:
@@ -132,6 +137,7 @@ import java.lang.String;
         //g.clearRect(0,0,600,600);
         g.setColor(color);
         g.fillRect (ParametersReturn[1],ParametersReturn[2],ParametersReturn[3],ParametersReturn[4]);
+        //repaint();
     }
     public void drawEllipse (Graphics g, Color color)
     {

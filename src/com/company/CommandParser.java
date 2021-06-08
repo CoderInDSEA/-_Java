@@ -1,7 +1,7 @@
 package com.company;
 
 public class CommandParser {
-    boolean ErrorCommand;
+    boolean ErrorCommand = true;
     public int[] ParametersReturn = {0};
     public String ColorReturn;
     public  char []  message = {' '};
@@ -40,7 +40,6 @@ public class CommandParser {
     public char[] RetMessage(char [] command) {
         CommandIdentifier(command);
         char [] ReturnMessage = this.message;
-        //ReturnMessage = this.message;
         return ReturnMessage;
     }
     private String getCharForNumber(int i) {
@@ -63,30 +62,6 @@ public class CommandParser {
                     return true;
                 }
             }
-        /*}else  {
-            for (int counterCheckCommand = 0; counterCheckCommand < command.length; counterCheckCommand++) {
-                failChecker = 0;
-                for (int counterChecker = 0; counterChecker < characterCheck.length; counterChecker++) {
-                    if (command[counterCheckCommand] == '_') counterDelimiter++;
-                    if (counterDelimiter == 4 && command[counterCheckCommand] == '_'){
-                        for(int CounterIdent = 0; CounterIdent<command.length; CounterIdent++ ){if(command[CounterIdent] == '_') {iterationCounter = CounterIdent;
-                        break;}}
-                    }
-                    if (iterationCounter != 0) {
-                        counterCheckCommand = iterationCounter;
-                        break;
-                    }
-                    if (command[counterCheckCommand] == characterCheck[counterChecker]) {
-                        failChecker++;
-                        break;
-                    }
-
-                }
-                if (failChecker == 0) {
-                    return true;
-                }
-            }
-        }*/
         return false ;
     }
 
@@ -131,16 +106,11 @@ public class CommandParser {
         //Size Array
         color = new char[4];
 
-        //Command Identifier
-       // IdentCommand = command[1];
-
-
         //Character Check
         FailChecker = CharacterCheck(command);
         if (FailChecker == true) {
             System.out.println(String.format("You made a mistake in the command"));
-            ErrorCommand = true;
-            return new CommandParser(ErrorCommand, ParametersReturn, ColorReturn, message);
+            return new CommandParser(true, ParametersReturn, ColorReturn, message);
         } else {
             //Algorithm
             if (command[counterCommand] == startString) {
@@ -903,6 +873,10 @@ public class CommandParser {
                         } else {
                             return new CommandParser(true, ParametersReturn, ColorReturn, message);
                         }
+                    }
+                    else
+                    {
+                        return new CommandParser(true, ParametersReturn, ColorReturn, message);
                     }
                 }
             } else {

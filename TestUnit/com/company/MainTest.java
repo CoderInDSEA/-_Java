@@ -192,7 +192,7 @@ public class MainTest {
         Object[] ParametersTest = CommandParameters();
         Object[] ParametersReturn = CommandReturn();
         CommandParser returningValue = new CommandParser();
-        char[] commandTestFourthCommandError = {'#', '6', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
+        char[] commandTestFourthCommandError = {'#', '9', '_', '1', '0', '0', '_', '1', '0', '0', '_', '5', '0', '_', '1', '0', '_', 'f', 'f', 'f', 'f', '@'};
         ParametersTest[0] = new int[]{5, 100, 100, 100, 10};
         ParametersTest[1] = "ffff";
         ParametersReturn[0] = returningValue.RetParameters(commandTestFourthCommandError);
